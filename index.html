@@ -24,10 +24,17 @@
                 <h2><%= book %></h2>
                 <% _.each(chapters, function(chapter){ %>
                     <div>
-                    <span style="font-weight:bold"><%= chapter.ch %></span>
+                    <a href="#passage/<%= book + ' ' + chapter.ch %>" style="font-weight:bold"><%= chapter.ch %></a>
                     <span><%= chapter.desc %></span>
                     </div>
                 <% }); %>
+            </div>
+        </script>
+
+        <script type="text/template" id="passageTemplate">
+            <div >
+                <h2><%= passage %></h2>
+                <%= content %>
             </div>
         </script>
 

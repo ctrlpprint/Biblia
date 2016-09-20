@@ -39,6 +39,33 @@ biblia.BookView = Backbone.View.extend({
 });
 
 // View Passage
+biblia.PassageView = Backbone.View.extend({
+    template: _.template($('#passageTemplate').html()),
+
+    render: function(eventName) {
+        console.log("rendering passage view");
+        
+        var passageTemplate = this.template(this.model);
+        $(this.el).append(passageTemplate);
+        return this;
+    }
+    
+});
+
+biblia.getPassage = function(passage, onSuccess){
+    var url = "http://www.esvapi.org/v2/rest/passageQuery?key=IP&passage="+encodeURIComponent(passage);
+    var yql = "select content from data.headers where url='" + url + "'";
+    $.ajax({
+        type: "GET",
+        url: "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(yql) + "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?",
+        async: false,
+        dataType: "json",
+        success: function (data) {
+            response = data.query.results.resources.content;
+            onSuccess(response);
+        }
+    });
+}
 
 biblia.Router = Backbone.Router.extend({
     routes: {
@@ -55,9 +82,9 @@ biblia.Router = Backbone.Router.extend({
     home: function(){
         console.log("home");
         var self = this;
-        var books = new biblia.Books();
-        biblia.booksView = new biblia.BooksView({model:books});
-        books.fetch({
+        biblia.books = biblia.books || new biblia.Books();
+        biblia.booksView = new biblia.BooksView({model:biblia.books});
+        biblia.books.fetch({
             success: function(){
                 biblia.booksView.render();
                 self.$content.html(biblia.booksView.el);
@@ -69,7 +96,7 @@ biblia.Router = Backbone.Router.extend({
     book: function(title){
         var self = this;
         console.log("book");
-        biblia.books = new biblia.Books();
+        biblia.books = biblia.books || new biblia.Books();
         biblia.books.fetch({
             success: function(){
                 // backbone where returns an array.
@@ -82,7 +109,30 @@ biblia.Router = Backbone.Router.extend({
        
     },
     
-    passage: function(){
-       console.log("passage");        
+    passage: function(term){
+        var self = this;
+        console.log("passage");        
+        biblia.books = biblia.books || new biblia.Books();
+        biblia.books.fetch({
+            success: function(){
+                
+                biblia.getPassage(term, function(response){
+                    var title = term.substring(term, term.lastIndexOf(" "));
+                    var book = biblia.books.where({book: title})[0];
+                    biblia.passageView = new biblia.PassageView(
+                    {  
+                        model:
+                        {
+                            book: book, 
+                            passage: term,
+                            content: response
+                        }
+                    });
+                    biblia.passageView.render();
+                    self.$content.html(biblia.passageView.el);                    
+                });
+                
+            }
+        });
     }
 });
