@@ -11,14 +11,12 @@ biblia.Books = Backbone.Collection.extend({
 
 // Home
 biblia.BooksView = Backbone.View.extend({
-    el: "#bookList",
     template: _.template($('#bookListTemplate').html()),
 
     render: function(eventName) {
         console.log("rendering book list view");
         // Is there an elegant way of defining a container element?
        _.each(this.model.models, function(book){
-           console.log(book);
             var bookTemplate = this.template(book.toJSON());
             $(this.el).append(bookTemplate);
         }, this);
@@ -29,7 +27,6 @@ biblia.BooksView = Backbone.View.extend({
 
 // View Book
 biblia.BookView = Backbone.View.extend({
-    el: "#book",
     template: _.template($('#bookTemplate').html()),
 
     render: function(eventName) {
@@ -51,20 +48,26 @@ biblia.Router = Backbone.Router.extend({
     },
     
     initialize: function(){
+        console.log("init");
+        this.$content = $("#app");
     },
     
     home: function(){
         console.log("home");
+        var self = this;
         var books = new biblia.Books();
         biblia.booksView = new biblia.BooksView({model:books});
         books.fetch({
             success: function(){
                 biblia.booksView.render();
+                self.$content.html(biblia.booksView.el);
             }
         });      
+        
     },
     
     book: function(title){
+        var self = this;
         console.log("book");
         biblia.books = new biblia.Books();
         biblia.books.fetch({
@@ -73,6 +76,7 @@ biblia.Router = Backbone.Router.extend({
                 var book = biblia.books.where({book: title})[0];
                 biblia.bookView = new biblia.BookView({model:book});
                 biblia.bookView.render();
+                self.$content.html(biblia.bookView.el);
             }
         });
        
