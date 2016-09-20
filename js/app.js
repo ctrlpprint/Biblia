@@ -53,11 +53,11 @@ biblia.PassageView = Backbone.View.extend({
 });
 
 biblia.getPassage = function(passage, onSuccess){
-    var url = "http://www.esvapi.org/v2/rest/passageQuery?key=IP&passage="+encodeURIComponent(passage);
+    var url = "https://www.esvapi.org/v2/rest/passageQuery?key=IP&passage="+encodeURIComponent(passage);
     var yql = "select content from data.headers where url='" + url + "'";
     $.ajax({
         type: "GET",
-        url: "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(yql)
+        url: "https://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(yql)
          + "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?",
         async: false,
         dataType: "json",
