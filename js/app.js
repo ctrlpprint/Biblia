@@ -57,7 +57,8 @@ biblia.getPassage = function(passage, onSuccess){
     var yql = "select content from data.headers where url='" + url + "'";
     $.ajax({
         type: "GET",
-        url: "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(yql) + "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?",
+        url: "http://query.yahooapis.com/v1/public/yql?q=" + encodeURIComponent(yql)
+         + "&format=json&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=?",
         async: false,
         dataType: "json",
         success: function (data) {
@@ -88,8 +89,9 @@ biblia.Router = Backbone.Router.extend({
             success: function(){
                 biblia.booksView.render();
                 self.$content.html(biblia.booksView.el);
+                document.title = "Biblia";
             }
-        });      
+        });
         
     },
     
@@ -104,6 +106,7 @@ biblia.Router = Backbone.Router.extend({
                 biblia.bookView = new biblia.BookView({model:book});
                 biblia.bookView.render();
                 self.$content.html(biblia.bookView.el);
+                document.title = title + " - Biblia";
             }
         });
        
@@ -129,7 +132,9 @@ biblia.Router = Backbone.Router.extend({
                         }
                     });
                     biblia.passageView.render();
-                    self.$content.html(biblia.passageView.el);                    
+                    self.$content.html(biblia.passageView.el);     
+                    document.title = term +  " - Biblia";
+               
                 });
                 
             }
