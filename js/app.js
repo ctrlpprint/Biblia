@@ -6,7 +6,7 @@ biblia.Book = Backbone.Model.extend();
 
 biblia.Books = Backbone.Collection.extend({
    model:biblia.Book,
-   url: '/js/chapters.json' 
+   url: 'js/chapters.json' 
 });
 
 // Home
