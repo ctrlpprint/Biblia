@@ -53,7 +53,7 @@ biblia.PassageView = Backbone.View.extend({
 });
 
 biblia.getPassage = function(passage, onSuccess){
-    var url = "https://www.esvapi.org/v2/rest/passageQuery?key=IP&passage="+encodeURIComponent(passage);
+    var url = "http://www.esvapi.org/v2/rest/passageQuery?key=IP&passage="+encodeURIComponent(passage);
     var yql = "select content from data.headers where url='" + url + "'";
     $.ajax({
         type: "GET",
