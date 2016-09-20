@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <title>
+            Biblia
+        </title>
+    </head>
+    <body>
+        <h1>
+            Biblia
+        </h1>
+        <div id="bookList"></div>
+        
+        <script type="text/template" id="bookListTemplate">
+            <div >
+                <a href='#books/<%= book %>'><%= book %></a>
+                <% _.each(chapters, function(chapter){ %>
+                    <span><%= chapter.ch %></span>
+                <% }); %>
+            </div>
+        </script>
+
+        <script src="js/jquery.js"></script>
+        <script src="js/underscore.js"></script>
+        <script src="js/backbone.js"></script>
+        <script src="js/app.js"></script>
+        
+        <script type="text/javascript">
+            $(document).ready(function(){
+               biblia.Router = new biblia.Router();
+               Backbone.history.start(); 
+            });
+        </script>
+    </body>
+</html>
+    
