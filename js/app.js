@@ -79,7 +79,12 @@ biblia.Router = Backbone.Router.extend({
         console.log("init");
         this.$content = $("#app");
     },
-    
+
+    setTitles: function(title){
+        $("#pageTitle").text(title);
+        document.title = title;        
+    },
+
     home: function(){
         console.log("home");
         var self = this;
@@ -89,7 +94,7 @@ biblia.Router = Backbone.Router.extend({
             success: function(){
                 biblia.booksView.render();
                 self.$content.html(biblia.booksView.el);
-                document.title = "Biblia";
+                self.setTitles("Biblia");
             }
         });
         
@@ -106,7 +111,7 @@ biblia.Router = Backbone.Router.extend({
                 biblia.bookView = new biblia.BookView({model:book});
                 biblia.bookView.render();
                 self.$content.html(biblia.bookView.el);
-                document.title = title + " - Biblia";
+                self.setTitles(title)
             }
         });
        
@@ -133,7 +138,7 @@ biblia.Router = Backbone.Router.extend({
                     });
                     biblia.passageView.render();
                     self.$content.html(biblia.passageView.el);     
-                    document.title = term +  " - Biblia";
+                    self.setTitles(term);
                
                 });
                 

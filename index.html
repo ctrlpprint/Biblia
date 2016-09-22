@@ -3,17 +3,37 @@
         <title>
             Biblia
         </title>
+        <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
+
     </head>
     <body>
+        
+        <nav class="fixed-nav-bar">
+            <div id="menu" class="menu">
+                <a class="sitename" href="">Biblia</a>
+                <h1 id="pageTitle"></h1>
+                <label for="op" style="display:inline;">=</label>
+            </div>
+        </nav>
+
+        <%-- Will need to make scrolling work properly if sticking with this approach. -->
+        <input type="checkbox" id="op"></input>
+
+        <div class="overlay overlay-hugeinc">
+			<label for="op"></label>
+			<nav>
+				<ul>
+					<li><a href="#">Home</a></li>
+					<li><a href="#">About</a></li>
+					<li><a href="#">Work</a></li>
+					<li><a href="#">Clients</a></li>
+					<li><a href="#">Contact</a></li>
+				</ul>
+			</nav>
+        </div>
+
         <div class="container">
-            <div class="row">
-                <h1><a href="/">
-                    Biblia
-                </h1></a>
-            </div>
-            <div class="row">
-                <div id="app"></div>
-            </div>
+            <div id="app"></div>
         </div>
         
         <script type="text/template" id="bookListTemplate">
@@ -39,13 +59,16 @@
 
         <script type="text/template" id="passageTemplate">
             <div >
-                <h2><%= passage %></h2>
+                <!-- <h2><%= passage %></h2> -->
                 <%= content %>
             </div>
         </script>
 
+
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/skeleton.css">
+        <link rel="stylesheet" href="css/site.css">
+
 
         <script src="js/jquery.js"></script>
         <script src="js/underscore.js"></script>
