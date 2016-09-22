@@ -9,7 +9,7 @@ h1, h2, h3, h4, h5, h5 {
 }
 
 .chapter-num, .verse-num, .footnote {
-  vertical-align:super;
+  vertical-align:super; font-size: 1.0rem;
 }
 
 
@@ -20,11 +20,11 @@ nav h1 {
   color: white;
 }
 
-.esv object{
+.esv object, .esv h2 {
   display:none;
 }
 
-a{
+a {
   color: #C35D4F;
   text-decoration: none;
 }
@@ -37,7 +37,6 @@ h3, .chapter-num, .verse-num{
   color: #E19E84;
 }
 
-/* https://github.com/sixrevisions/fixed-navigation-bar */
 .fixed-nav-bar {
   position: fixed;
   top: 0;
@@ -45,7 +44,7 @@ h3, .chapter-num, .verse-num{
   right: 0;
   z-index: 100;
   width: 100%;
-  background-color:#68A99D;
+  background:linear-gradient(#68A99D,#4a9285);
 }
 
 .fixed-nav-bar .menu {
@@ -87,7 +86,6 @@ h3, .chapter-num, .verse-num{
   margin-top: 60px;
 }
 
-/* Example responsive navigation menu  */
 .fixed-nav-bar li, .fixed-nav-bar a { 
   height: 50px;
   line-height: 50px;
@@ -98,13 +96,10 @@ h3, .chapter-num, .verse-num{
   max-width: 960px;
   margin: 0 auto;
 }
-.fixed-nav-bar .menu a, .fixed-nav-bar .menu a:visited {
-  color: #ffffff;
-}
 .fixed-nav-bar .menu a:hover, .fixed-nav-bar .menu a:target {
   color: #ebebeb;
 }
-.fixed-nav-bar a.sitename, .fixed-nav-bar a:visited.sitename {
+.fixed-nav-bar a, .fixed-nav-bar a:visited {
   color: #e0e0e0;
 }
 
