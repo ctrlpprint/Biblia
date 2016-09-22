@@ -88,61 +88,43 @@ biblia.Router = Backbone.Router.extend({
     home: function(){
         console.log("home");
         var self = this;
-        biblia.books = biblia.books || new biblia.Books();
         biblia.booksView = new biblia.BooksView({model:biblia.books});
-        biblia.books.fetch({
-            success: function(){
-                biblia.booksView.render();
-                self.$content.html(biblia.booksView.el);
-                self.setTitles("Biblia");
-            }
-        });
-        
+        biblia.booksView.render();
+        self.$content.html(biblia.booksView.el);
+        self.setTitles("Biblia");        
     },
     
     book: function(title){
         var self = this;
         console.log("book");
         biblia.books = biblia.books || new biblia.Books();
-        biblia.books.fetch({
-            success: function(){
-                // backbone where returns an array.
-                var book = biblia.books.where({book: title})[0];
-                biblia.bookView = new biblia.BookView({model:book});
-                biblia.bookView.render();
-                self.$content.html(biblia.bookView.el);
-                self.setTitles(title)
-            }
-        });
-       
+        // backbone where returns an array.
+        var book = biblia.books.where({book: title})[0];
+        biblia.bookView = new biblia.BookView({model:book});
+        biblia.bookView.render();
+        self.$content.html(biblia.bookView.el);
+        self.setTitles(title)       
     },
     
     passage: function(term){
         var self = this;
         console.log("passage");        
-        biblia.books = biblia.books || new biblia.Books();
-        biblia.books.fetch({
-            success: function(){
-                
-                biblia.getPassage(term, function(response){
-                    var title = term.substring(term, term.lastIndexOf(" "));
-                    var book = biblia.books.where({book: title})[0];
-                    biblia.passageView = new biblia.PassageView(
-                    {  
-                        model:
-                        {
-                            book: book, 
-                            passage: term,
-                            content: response
-                        }
-                    });
-                    biblia.passageView.render();
-                    self.$content.html(biblia.passageView.el);     
-                    self.setTitles(term);
-               
-                });
-                
-            }
-        });
+        biblia.getPassage(term, function(response){
+            var title = term.substring(term, term.lastIndexOf(" "));
+            var book = biblia.books.where({book: title})[0];
+            biblia.passageView = new biblia.PassageView(
+            {  
+                model:
+                {
+                    book: book, 
+                    passage: term,
+                    content: response
+                }
+            });
+            biblia.passageView.render();
+            self.$content.html(biblia.passageView.el);     
+            self.setTitles(term);
+        
+        });                
     }
 });
