@@ -15,12 +15,13 @@ biblia.BooksView = Backbone.View.extend({
 
     render: function(eventName) {
         console.log("rendering book list view");
-        // Is there an elegant way of defining a container element?
+        // Is there a more elegant way of defining a container element?
+        $(this.el).append("<ul></ul>");
+        var $el = $(this.el).find("ul");
        _.each(this.model.models, function(book){
             var bookTemplate = this.template(book.toJSON());
-            $(this.el).append(bookTemplate);
+            $el.append(bookTemplate);
         }, this);
-
         return this;
     }
 });
@@ -97,7 +98,6 @@ biblia.Router = Backbone.Router.extend({
     book: function(title){
         var self = this;
         console.log("book");
-        biblia.books = biblia.books || new biblia.Books();
         // backbone where returns an array.
         var book = biblia.books.where({book: title})[0];
         biblia.bookView = new biblia.BookView({model:book});
@@ -112,10 +112,8 @@ biblia.Router = Backbone.Router.extend({
         biblia.getPassage(term, function(response){
             var title = term.substring(term, term.lastIndexOf(" "));
             var book = biblia.books.where({book: title})[0];
-            biblia.passageView = new biblia.PassageView(
-            {  
-                model:
-                {
+            biblia.passageView = new biblia.PassageView({
+                model: {
                     book: book, 
                     passage: term,
                     content: response

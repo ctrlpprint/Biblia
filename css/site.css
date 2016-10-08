@@ -1,7 +1,9 @@
 /* Palette via http://www.colourlovers.com/palette/3756463/Forever_Floral */
+/* Fonts via https://fonts.google.com/specimen/Roboto?selection.family=Lato|Roboto */
 body {
   color: #463335;
   font-family: 'Lato', sans-serif;
+  background-color: #FAFBF4;
 }
 
 h1, h2, h3, h4, h5, h5 {
@@ -25,7 +27,7 @@ nav h1 {
 }
 
 a {
-  color: #C35D4F;
+  color: #B75D69;
   text-decoration: none;
 }
 
@@ -34,7 +36,7 @@ a:hover{
 }
 
 h3, .chapter-num, .verse-num{
-  color: #E19E84;
+  color: #B75D69;
 }
 
 .fixed-nav-bar {
@@ -44,7 +46,7 @@ h3, .chapter-num, .verse-num{
   right: 0;
   z-index: 100;
   width: 100%;
-  background:linear-gradient(#68A99D,#4a9285);
+  background:linear-gradient(#4B5F78, #3A506B);
 }
 
 .fixed-nav-bar .menu {

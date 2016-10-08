@@ -4,43 +4,49 @@
             Biblia
         </title>
         <meta name=viewport content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#68A99D" />
         <link href="https://fonts.googleapis.com/css?family=Lato|Roboto" rel="stylesheet">
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/skeleton.css">
+        <link rel="stylesheet" href="css/site.css">
+    	<link rel="stylesheet" href="css/popup.css"> 
 
     </head>
     <body>
-        
-
-        <div class="overlay overlay-hugeinc" style="display:none;">
-			<nav>
-				<ul>
-					<li><a href="#">Home</a></li>
-					<li><a href="#">About</a></li>
-					<li><a href="#">Work</a></li>
-					<li><a href="#">Clients</a></li>
-					<li><a href="#">Contact</a></li>
-				</ul>
-			</nav>
-        </div>
-
         <div class="container">
-        <nav class="fixed-nav-bar">
-            <div id="menu" class="menu row">
-                <a class="sitename left" href="">Biblia</a>
-                <h1 id="pageTitle" class="center"></h1>
-                <a href="#" class="right" 
-                    style="font-size:4rem; font-weight: bold; line-height: 4rem;">&equiv;</a>
-            </div>
-        </nav>
+        	<header class="cd-header">
+                <nav class="fixed-nav-bar">
+                    <div id="menu" class="menu row">
+                        <a class="sitename left" href="">Biblia</a>
+                        <h1 id="pageTitle" class="center"></h1>
+                        <a class="cd-primary-nav-trigger" href="#">
+                            <span class="cd-menu-text">Menu</span><span class="cd-menu-icon"></span>
+                        </a> <!-- cd-primary-nav-trigger -->
+
+                    </div>
+                </nav>
+
+        	</header>
+
+            <nav>
+                <ul class="cd-primary-nav">
+<!--                    <li class="cd-label">About us</li>
+                    <li><a href="#0">The team</a></li>
+ -->                   
+                </ul>
+            </nav>
+
+
             <div id="app"></div>
         </div>
         
         <script type="text/template" id="bookListTemplate">
-            <div >
+            <li >
                 <a href='#books/<%= book %>'><%= book %></a>
                 <% _.each(chapters, function(chapter){ %>
                     <span><%= chapter.ch %></span>
                 <% }); %>
-            </div>
+            </li>
         </script>
 
         <script type="text/template" id="bookTemplate">
@@ -63,14 +69,10 @@
         </script>
 
 
-        <link rel="stylesheet" href="css/normalize.css">
-        <link rel="stylesheet" href="css/skeleton.css">
-        <link rel="stylesheet" href="css/site.css">
-
-
         <script src="js/jquery.js"></script>
         <script src="js/underscore.js"></script>
         <script src="js/backbone.js"></script>
+        <script src="js/popup.js"></script>
         <script src="js/app.js"></script>
         
         <script type="text/javascript">
@@ -79,7 +81,14 @@
                 biblia.books = new biblia.Books();
                 biblia.books.fetch({
                     success: function(){
-                       Backbone.history.start(); 
+                        biblia.booksView = new biblia.BooksView({model:biblia.books});
+                        biblia.booksView.render();
+                        $(".cd-primary-nav").html(biblia.booksView.el);
+
+                        $(".cd-primary-nav").on("click", function(){
+                            $(".cd-primary-nav-trigger").trigger("click");
+                        });
+                        Backbone.history.start(); 
                     }
                 });
             });
