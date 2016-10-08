@@ -204,7 +204,7 @@ Main components
   width: 100%;
   background: rgba(2, 23, 37, 0.96);
   z-index: 2;
-  text-align: center;
+  text-align: left;
   padding: 50px 0;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
@@ -234,7 +234,6 @@ Main components
 }
 .cd-primary-nav a {
   display: inline-block;
-  padding: .4em 1em;
   border-radius: 0.25em;
   -webkit-transition: background 0.2s;
   -moz-transition: background 0.2s;

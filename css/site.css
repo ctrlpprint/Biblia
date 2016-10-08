@@ -105,3 +105,19 @@ h3, .chapter-num, .verse-num{
   color: #e0e0e0;
 }
 
+@media only screen and (min-width: 1170px) {
+  .cd-primary-nav>div>ul {
+    width: 80%;
+      margin-left: auto;
+  }
+}
+.cd-primary-nav li {
+  list-style-type: none;
+}
+
+.cd-primary-nav li>ul {
+  display:none;
+}
+.cd-primary-nav .desc {
+  color: 774C60;
+}

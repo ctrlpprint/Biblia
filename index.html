@@ -30,9 +30,6 @@
 
             <nav>
                 <ul class="cd-primary-nav">
-<!--                    <li class="cd-label">About us</li>
-                    <li><a href="#0">The team</a></li>
- -->                   
                 </ul>
             </nav>
 
@@ -41,11 +38,19 @@
         </div>
         
         <script type="text/template" id="bookListTemplate">
-            <li >
-                <a href='#books/<%= book %>'><%= book %></a>
+            <li class="row">
+                <a class="book" href="#books/<%= book %>"><%= book %></a>
+                <ul>
+                    <li><a href="#books/<%= book %>">Intro</a></li>
                 <% _.each(chapters, function(chapter){ %>
-                    <span><%= chapter.ch %></span>
+                    <li>
+                        <a href="#passage/<%= book + ' ' + chapter.ch %>">
+                            <span class="chapter"><%= chapter.ch %></span> 
+                            <span class="desc"><%= chapter.desc %></span>
+                        </a>
+                    </li>
                 <% }); %>
+                </ul>
             </li>
         </script>
 
@@ -85,9 +90,20 @@
                         biblia.booksView.render();
                         $(".cd-primary-nav").html(biblia.booksView.el);
 
-                        $(".cd-primary-nav").on("click", function(){
+                        $(".cd-primary-nav a:not(.book)").on("click", function(){
                             $(".cd-primary-nav-trigger").trigger("click");
                         });
+
+                        $(".cd-primary-nav .book").on("click", function(evt){
+                            evt.preventDefault();
+                            var $list = $(this).next();
+                            if ( $list.is( ":hidden" ) ) {
+                                $list.slideDown( "slow" );
+                            } else {
+                                $list.slideUp("slow");
+                            }
+                        });
+                        
                         Backbone.history.start(); 
                     }
                 });
